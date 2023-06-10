@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>How Do React Hooks Work?</title>
+    <script src="deps/@babel/standalone/7.22.5/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="react.js" type="module"></script>
+    <script type="text/babel">
+
+        class Question extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { answer: 42 };
+            }
+            render() {
+                const { lang } = this.props;
+                const { answer } = this.state;
+                return <span>{lang}: {answer}</span>;
+            }
+        }
+
+        function Hello({ who }) {
+            return <b>Hello, {who ?? "Bob"}!</b>;
+        }
+
+        function Counter() {
+            const ref = React.useRef(function fnRef() {});
+            const [count, setCount] = React.useState(0);
+            return (
+                <button onClick={() => setCount(count + 1)} type="button">
+                    {count} + 1
+                </button>
+            )
+        }
+
+        const node = document.querySelector('#root');
+        const root = ReactDOM.createRoot(node);
+        root.render(<div>
+            <Question lang="en" />
+            <Hello who="World" />
+            <Counter />
+        </div>);
+    </script>
+</body>
+</html>
